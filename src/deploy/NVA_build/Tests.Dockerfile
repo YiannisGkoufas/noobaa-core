@@ -18,12 +18,11 @@ COPY ./src/deploy/NVA_build/set_mongo_repo.sh /tmp/
 RUN chmod +x /tmp/set_mongo_repo.sh && \
     /bin/bash -xc "/tmp/set_mongo_repo.sh"
 
-RUN dnf install -y -q vim \
-    mongodb-org-3.6.3 \
-    mongodb-org-server-3.6.3 \
-    mongodb-org-shell-3.6.3 \
-    mongodb-org-mongos-3.6.3 \
-    mongodb-org-tools-3.6.3 \
+RUN dnf install -y epel-release
+RUN rm -f /var/lib/rpm/__db* && db_verify /var/lib/rpm/Packages && rpm --rebuilddb && yum clean all && yum update -y --nogpgcheck
+RUN dnf group install -y "Development Tools"
+RUN dnf install -y vim \
+    mongodb-enterprise \
     which python3-virtualenv python36-devel libevent-devel libffi-devel libxml2-devel libxslt-devel zlib-devel \
     git && \
     dnf clean all

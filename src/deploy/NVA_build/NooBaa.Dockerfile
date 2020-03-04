@@ -39,7 +39,7 @@ RUN tar \
 #   Cache: Rebuild when any layer is changing
 ##############################################################
 
-FROM centos:8
+FROM centos:7
 
 ENV container docker
 ENV PORT 8080
@@ -58,10 +58,11 @@ ENV ENDPOINT_NODE_OPTIONS ''
 #   Cache: Rebuild when we adding/removing requirments
 ##############################################################
 # RUN dnf install -y -q bash \
+RUN yum update -y && yum install -y dnf
 RUN dnf install -y -q bash \
     lsof \
     openssl \
-    rsyslog-8.37.0 \
+    rsyslog \
     strace \
     wget \
     curl \

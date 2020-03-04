@@ -13,7 +13,7 @@
                 ],
                 'cflags': [
                     '-std=c99',
-                    '-msse4.1', # tell the compiler we use SSE4.1 in cm256
+                   # '-msse4.1', # tell the compiler we use SSE4.1 in cm256
                 ],
                 'cflags_cc': [
                     '-std=c++11'

@@ -33,9 +33,9 @@
         ],
         'dependencies': [
             '<@(napi_dependencies)',
-            'third_party/cm256.gyp:cm256',
+            #'third_party/cm256.gyp:cm256',
             'third_party/snappy.gyp:snappy',
-            'third_party/isa-l.gyp:isa-l-ec',
+            #'third_party/isa-l.gyp:isa-l-ec',
         ],
         'sources': [
             # module

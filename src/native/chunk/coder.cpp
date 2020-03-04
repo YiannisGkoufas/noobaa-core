@@ -12,7 +12,7 @@
 #include <openssl/rand.h>
 #include <openssl/sha.h>
 
-#include "../third_party/cm256/cm256.h"
+// #include "../third_party/cm256/cm256.h"
 #include "../third_party/isa-l/include/erasure_code.h"
 #include "../util/b64.h"
 #include "../util/common.h"
@@ -34,11 +34,11 @@ namespace noobaa
 static void _nb_encode(struct NB_Coder_Chunk* chunk);
 static void _nb_encrypt(struct NB_Coder_Chunk* chunk, const EVP_CIPHER* evp_cipher);
 static void _nb_no_encrypt(struct NB_Coder_Chunk* chunk);
-static void _nb_erasure(struct NB_Coder_Chunk* chunk);
+//static void _nb_erasure(struct NB_Coder_Chunk* chunk);
 
 static void _nb_decode(struct NB_Coder_Chunk* chunk);
-static void
-_nb_derasure(struct NB_Coder_Chunk* chunk, struct NB_Coder_Frag** frags_map, int total_frags);
+//static void
+//_nb_derasure(struct NB_Coder_Chunk* chunk, struct NB_Coder_Frag** frags_map, int total_frags);
 static void _nb_decrypt(
     struct NB_Coder_Chunk* chunk, struct NB_Coder_Frag** frags_map, const EVP_CIPHER* evp_cipher);
 static void _nb_no_decrypt(struct NB_Coder_Chunk* chunk, struct NB_Coder_Frag** frags_map);
@@ -58,6 +58,7 @@ _nb_align_up(int n, int align)
     return _nb_div_up(n, align) * align;
 }
 
+/*
 void
 nb_chunk_coder_init()
 {
@@ -71,6 +72,7 @@ nb_chunk_coder_init()
     (void)gf256_div_mem;
 #endif
 }
+*/
 
 void
 nb_chunk_init(struct NB_Coder_Chunk* chunk)
@@ -262,7 +264,7 @@ _nb_encode(struct NB_Coder_Chunk* chunk)
     if (chunk->errors.count) return;
 
     if (chunk->parity_type[0]) {
-        _nb_erasure(chunk);
+        //_nb_erasure(chunk);
     }
 
     if (chunk->errors.count) return;
@@ -464,6 +466,7 @@ _nb_no_encrypt(struct NB_Coder_Chunk* chunk)
     }
 }
 
+/*
 static void
 _nb_erasure(struct NB_Coder_Chunk* chunk)
 {
@@ -558,6 +561,8 @@ _nb_erasure(struct NB_Coder_Chunk* chunk)
     }
 }
 
+*/
+
 static void
 _nb_decode(struct NB_Coder_Chunk* chunk)
 {
@@ -623,7 +628,7 @@ _nb_decode(struct NB_Coder_Chunk* chunk)
 
     frags_map = nb_new_arr(total_frags, struct NB_Coder_Frag*);
 
-    _nb_derasure(chunk, frags_map, total_frags);
+    //_nb_derasure(chunk, frags_map, total_frags);
 
     if (chunk->errors.count) return;
 
@@ -728,6 +733,7 @@ _nb_ec_update_decoded_fragments(
     }
 }
 
+/*
 static void
 _nb_derasure(struct NB_Coder_Chunk* chunk, struct NB_Coder_Frag** frags_map, int total_frags)
 {
@@ -899,6 +905,7 @@ _nb_derasure(struct NB_Coder_Chunk* chunk, struct NB_Coder_Frag** frags_map, int
         // but it seems anal because the chunk digest should cover it
     }
 }
+*/
 
 static void
 _nb_decrypt(

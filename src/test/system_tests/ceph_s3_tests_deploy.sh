@@ -13,10 +13,10 @@ mkdir -p /${NOOBAA_DIR}/src/test/system_tests/
 cd /${NOOBAA_DIR}/src/test/system_tests/
 
 DIRECTORY="s3-tests"
-CEPH_LINK="https://github.com/ceph/s3-tests.git"
+CEPH_LINK="https://github.com/YiannisGkoufas/s3-tests.git"
 # using a fixed version (commit) of ceph tests to avoid sudden changes. 
 # we should retest and update the version once in a while
-CEPH_TESTS_VERSION=13452bd25fdc5307afba9e93599fbfc87b4669c1
+CEPH_TESTS_VERSION=8232a036965804703bab88cbc6e97e86b2fb53ba
 if [ ! -d $DIRECTORY ]; then
     echo "Downloading Ceph S3 Tests..."
     git clone $CEPH_LINK

@@ -1,4 +1,4 @@
-FROM centos:8 
+FROM centos:7 
 LABEL maintainer="Liran Mauda (lmauda@redhat.com)"
 
 ##############################################################
@@ -8,21 +8,21 @@ LABEL maintainer="Liran Mauda (lmauda@redhat.com)"
 #   Cache: Rebuild when we adding/removing requirments
 ##############################################################
 ENV container docker
+RUN yum update -y -q && yum install dnf -y -q
 RUN dnf update -y -q && \
     dnf install -y -q wget unzip which vim python3 && \
-    dnf --enablerepo=PowerTools install -y -q yasm && \
-    dnf group install -y -q "Development Tools" && \
+    dnf group install -y "Development Tools" && \
     dnf clean all
-RUN alternatives --set python /usr/bin/python3
-# RUN version="1.3.0" && \
-#     wget -q -O yasm-${version}.tar.gz https://github.com/yasm/yasm/archive/v${version}.tar.gz && \
-#     tar -xf yasm-${version}.tar.gz && \
-#     pushd yasm-${version} && \
-#     ./autogen.sh && \
-#     make && \
-#     make install && \
-#     popd && \
-#     rm -rf yasm-${version} yasm-${version}.tar.gz
+RUN rm -rf /usr/bin/python && ln -s /usr/bin/python3 /usr/bin/python
+RUN version="1.3.0" && \
+    wget -q -O yasm-${version}.tar.gz https://github.com/yasm/yasm/archive/v${version}.tar.gz && \
+    tar -xf yasm-${version}.tar.gz && \
+    pushd yasm-${version} && \
+    ./autogen.sh --build=ppc64le && \
+    make && \
+    make install && \
+    popd && \
+    rm -rf yasm-${version} yasm-${version}.tar.gz
 
 ##############################################################
 # Layers:
@@ -44,7 +44,7 @@ RUN chmod +x ./install_nodejs.sh && \
 #   Cache: Rebuild the .nvmrc is changing
 ##############################################################
 RUN stable_version=$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt) && \
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/${stable_version}/bin/linux/amd64/kubectl && \
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/${stable_version}/bin/linux/ppc64le/kubectl && \
     chmod +x ./kubectl
 
 RUN mkdir -p /noobaa/src/
