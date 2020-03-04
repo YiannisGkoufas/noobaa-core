@@ -13,7 +13,7 @@
 #include <openssl/sha.h>
 
 // #include "../third_party/cm256/cm256.h"
-#include "../third_party/isa-l/include/erasure_code.h"
+// #include "../third_party/isa-l/include/erasure_code.h"
 #include "../util/b64.h"
 #include "../util/common.h"
 #include "../util/snappy.h"
