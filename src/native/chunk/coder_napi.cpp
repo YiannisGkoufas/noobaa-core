@@ -30,7 +30,7 @@ static void _nb_coder_update_chunk(
 void
 chunk_coder_napi(napi_env env, napi_value exports)
 {
-    nb_chunk_coder_init();
+    //nb_chunk_coder_init();
     napi_value func = 0;
     napi_create_function(env, "chunk_coder", NAPI_AUTO_LENGTH, _nb_chunk_coder, NULL, &func);
     napi_set_named_property(env, exports, "chunk_coder", func);

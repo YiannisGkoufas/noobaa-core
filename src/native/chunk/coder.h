@@ -55,7 +55,7 @@ struct NB_Coder_Chunk {
     int frag_size;
 };
 
-void nb_chunk_coder_init();
+//void nb_chunk_coder_init();
 
 void nb_chunk_init(struct NB_Coder_Chunk* chunk);
 void nb_chunk_free(struct NB_Coder_Chunk* chunk);
